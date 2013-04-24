@@ -48,11 +48,11 @@ gem 'cancan', git: 'git://github.com/ryanb/cancan.git', branch: '2.0', ref: 'f1c
 
 
 # Error reporting
-gem "airbrake"
+gem "sentry-raven"
 
 # Email marketing
 #gem 'mailchimp'
-gem 'catarse_mailchimp', git: 'git://github.com/devton/catarse_mailchimp'
+gem 'catarse_mailchimp', git: 'git://github.com/catarse/catarse_mailchimp'
 
 # HTML manipulation and formatting
 gem 'formtastic', "~> 2.1.1"

@@ -1,6 +1,6 @@
 GIT
-  remote: git://github.com/devton/catarse_mailchimp
-  revision: a5be917969a1df6010fbbdea25a5c1407c6f8659
+  remote: git://github.com/catarse/catarse_mailchimp
+  revision: 45dc426a68e97e2e2490ee058b7033c70b5a83d4
   specs:
     catarse_mailchimp (0.0.1)
       mailchimp
@@ -83,9 +83,6 @@ GEM
       i18n (~> 0.6)
       multi_json (~> 1.0)
     addressable (2.3.2)
-    airbrake (3.1.5)
-      builder
-      girl_friday
     arel (3.0.2)
     auto_html (1.4.2)
       RedCloth
@@ -185,8 +182,6 @@ GEM
     formtastic (2.1.1)
       actionpack (~> 3.0)
     fssm (0.2.9)
-    girl_friday (0.10.0)
-      connection_pool (~> 0.9.0)
     haml (3.1.7)
     has_scope (0.5.1)
     has_vimeo_video (0.0.5)
@@ -236,7 +231,7 @@ GEM
       skinny (~> 0.2.3)
       sqlite3 (~> 1.3)
       thin (~> 1.5.0)
-    mailchimp (0.0.7.alpha)
+    mailchimp (0.0.8)
       httparty
     memoist (0.2.0)
     meta_search (1.1.3)
@@ -377,6 +372,11 @@ GEM
       libwebsocket (~> 0.1.3)
       multi_json (~> 1.0)
       rubyzip
+    sentry-raven (0.4.5)
+      faraday (>= 0.7.6)
+      hashie
+      multi_json (~> 1.0)
+      uuidtools
     shoulda (3.3.1)
       shoulda-context (~> 1.0)
       shoulda-matchers (~> 1.4.1)
@@ -433,6 +433,7 @@ GEM
       execjs (>= 0.3.0)
       multi_json (~> 1.0, >= 1.0.2)
     unicode (0.4.3)
+    uuidtools (2.1.3)
     valuable (0.9.6)
     vimeo (1.5.3)
       httparty (>= 0.4.5)
@@ -453,7 +454,6 @@ PLATFORMS
 DEPENDENCIES
   RedCloth
   activemerchant (= 1.17.0)
-  airbrake
   auto_html (= 1.4.2)
   best_in_place
   brcep
@@ -509,6 +509,7 @@ DEPENDENCIES
   sass-rails (~> 3.2.5)
   schema_plus
   selenium-webdriver
+  sentry-raven
   shoulda
   sidekiq (= 2.4.0)
   sinatra

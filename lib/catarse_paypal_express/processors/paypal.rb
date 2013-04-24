@@ -13,7 +13,7 @@ module CatarsePaypalExpress
 
         backer.confirm! if success_payment?(status)
       rescue Exception => e
-        ::Airbrake.notify({ :error_class => "Paypal Processor Error", :error_message => "Paypal Processor Error: #{e.inspect}", :parameters => data}) rescue nil
+        Raven.capture_message("Paypal Notification Error: #{e.inspect}", { parameters: data })
       end
 
       protected
