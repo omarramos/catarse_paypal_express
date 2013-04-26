@@ -8,6 +8,8 @@ module CatarsePaypalExpress::Payment
     skip_before_filter :force_http
 
     before_filter :setup_gateway
+    before_filter :redirect_if_not_sign_in, :only => :success
+    before_filter :redirect_if_confirmed, only: :success
 
     SCOPE = "projects.backers.checkout"
 
@@ -56,7 +58,7 @@ module CatarsePaypalExpress::Payment
           ip: request.remote_ip,
           return_url: payment_success_paypal_express_url(id: backer.id),
           cancel_return_url: payment_cancel_paypal_express_url(id: backer.id),
-          currency_code: 'BRL',
+          currency_code: 'USD',
           description: t('paypal_description', scope: SCOPE, :project_name => backer.project.name, :value => backer.display_value),
           notify_url: payment_notifications_paypal_express_url(id: backer.id)
         })
@@ -77,6 +79,8 @@ module CatarsePaypalExpress::Payment
 
     def success
       backer = current_user.backs.find params[:id]
+
+
       begin
         @@gateway.purchase(backer.price_in_cents, {
           ip: request.remote_ip,
@@ -92,6 +96,7 @@ module CatarsePaypalExpress::Payment
         if details.params['transaction_id']
           backer.update_attribute :payment_id, details.params['transaction_id']
         end
+
         paypal_flash_success
         redirect_to main_app.thank_you_project_backer_path(project_id: backer.project.id, id: backer.id)
       rescue Exception => e
@@ -109,6 +114,21 @@ module CatarsePaypalExpress::Payment
     end
 
   private
+    def redirect_if_not_sign_in
+      unless user_signed_in?
+        session[:return_to] = payment_success_paypal_express_path(id: params[:id])
+        redirect_to main_app.login_path
+        return
+      end
+    end
+
+    def redirect_if_confirmed
+      backer = current_user.backs.find params[:id]
+      if !backer.nil? && backer.confirmed
+        paypal_flash_success
+        redirect_to main_app.thank_you_project_backer_path(project_id: backer.project.id, id: backer.id)
+      end
+    end
 
     def build_notification(backer, data)
       processor = CatarsePaypalExpress::Processors::Paypal.new
