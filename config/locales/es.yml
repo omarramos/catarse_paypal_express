@@ -1,0 +1,13 @@
+es:
+  projects:
+    backers:
+      review:
+        paypal: 'PayPal'
+        international:
+          section_title: 'You will be directed to the PayPal site to complete payment.'
+          button: 'Continúe a PayPal'
+      checkout:
+        paypal_cancel: "Su pago con PayPal ha sido cancelado. Por favor, trate de nuevo."
+        paypal_description: "Respalda el proyecto %{project_name} con %{value}"
+        paypal_error: "¡Oops! Hubo un error mientras se enviaba su pago a PayPal. Por favor, trate de nuevo."
+        success: "Su respaldo fue exitoso. ¡Gracias!"
